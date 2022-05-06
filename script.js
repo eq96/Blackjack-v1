@@ -7,4 +7,13 @@ function randomNum(max) {
 let firstCard = randomNum(10);
 let secondCard = randomNum(10);
 let sum = firstCard + secondCard;
-console.log(sum);
+
+if (sum > 21) {
+    console.log(`You hit ${sum}. You bust!`)
+}
+else if (sum === 21) {
+    console.log(`You hit ${sum}. Blackjack! You Win!`)
+}
+else if (sum < 21) {
+    console.log(`You hit ${sum}. Hit or settle?`)
+}
