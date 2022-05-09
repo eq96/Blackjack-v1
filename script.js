@@ -1,3 +1,9 @@
+/**Simple One-Way BlackJack Script - v1 - EQ
+ * 
+ * 
+ */
+
+
 let msg = document.getElementById("msg-el");
 let sumEl = document.getElementById("sum-el");
 let cardsEl = document.getElementById("cards-el");
@@ -71,16 +77,3 @@ function newCard() {
         renderGame();
     }
 }
-
-/*function restart() {
-    if (isAlive === false || hasBlackJack === true) {
-        cardsEl.textContent = "Cards: "
-        sumEl.textContent = "Sum: "
-        msg.textContent = "Press play game for a new game!"
-        isAlive === true;
-        hasBlackJack === false;
-        cards.length = 0;
-        sum = 0;
-    } return 1;
-}*/
-
