@@ -60,6 +60,7 @@ function renderGame() {
     else if (sum === 21) {
         message = `Blackjack! You Win!`
         hasBlackJack = true;
+        isAlive = false;
         player.win()
     }
     else {
