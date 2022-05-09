@@ -1,33 +1,86 @@
+let msg = document.getElementById("msg-el");
+let sumEl = document.getElementById("sum-el");
+let cardsEl = document.getElementById("cards-el");
+let playerEl = document.getElementById("player-el");
 
+
+let hasBlackJack = false;
+let isAlive = false;
+
+let message = "";
+
+let cards = [];
+let sum = 0;
+
+let player = {
+    name: "eddy",
+    cash: 200,
+    win: function() {
+        player.cash += 50;
+        playerEl.textContent = `${player.name}: $${player.cash}`
+    }
+}
 
 function randomNum(max) {
     return Math.floor(Math.random() * max) + 2;
 }
 
-let firstCard = randomNum(10);
-let secondCard = randomNum(10);
-let sum = firstCard + secondCard;
 
-let hasBlackJack = false;
-let isAlive = true;
-let message = ""
+function startGame() {
+    hasBlackJack = false;
+    let firstCard = randomNum(10)
+    let secondCard = randomNum(10)
+    cards = [firstCard, secondCard]
+    sum = firstCard + secondCard
+    if (isAlive === false) {
+        isAlive = true;
+        renderGame();
+    } else {
+        msg.textContent = "You already started a game! Hint: Press 'New Card'"
+    }
+}    
 
-if (sum > 21) {
-    message = `You hit ${sum}. You bust!`
-    isAlive = false;
-}
-else if (sum === 21) {
-    message = `You hit ${sum}. Blackjack! You Win!`
-    hasBlackJack = true;
-}
-else {
-    message = `You hit ${sum}. Hit or settle?`
+function renderGame() {
+    cardsEl.textContent = "Cards: "
+    for (let i = 0; i < cards.length; i++) {
+        cardsEl.textContent += cards[i] + " "
+    }
+
+    sumEl.textContent = `Sum: ${sum}`
+    if (sum > 21) {
+        message = `You bust!`
+        isAlive = false;
+    }
+    else if (sum === 21) {
+        message = `Blackjack! You Win!`
+        hasBlackJack = true;
+        player.win()
+    }
+    else {
+        message = `Hit or settle?`
+    }
+    
+    msg.textContent = message;
 }
 
-if (hasBlackJack === true) {
-    message = `Here are your winnings. Would you like to place another bet?`
-} else if (isAlive === false) {
-    message = `Press ENTER to play again!`
+function newCard() {
+    if(isAlive === true && hasBlackJack === false) {
+        let card = randomNum(10);
+        sum += card;
+        cards.push(card);
+        renderGame();
+    }
 }
 
-console.log(message)
+/*function restart() {
+    if (isAlive === false || hasBlackJack === true) {
+        cardsEl.textContent = "Cards: "
+        sumEl.textContent = "Sum: "
+        msg.textContent = "Press play game for a new game!"
+        isAlive === true;
+        hasBlackJack === false;
+        cards.length = 0;
+        sum = 0;
+    } return 1;
+}*/
+
