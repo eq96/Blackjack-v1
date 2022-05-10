@@ -1,3 +1,18 @@
+h1 {
+    color: goldenrod;
+    text-shadow: 2px 2px 0px #000000, 5px 4px 0px rgba(0,0,0,0.15); 
+}
+
+span {
+    color: goldenrod;
+    text-shadow: 2px 2px 0px #000000, 5px 4px 0px rgba(0,0,0,0.15);
+}
+
+#player-el {
+    color: greenyellow;
+    text-shadow: 2px 2px 0px #000000, 5px 4px 0px rgba(0,0,0,0.15);
+}
+
 body {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     background-image: url("./table.jpg");
@@ -5,11 +20,9 @@ body {
     color: white;
     font-weight: bold;
     font-size: 30px;
+    text-shadow: 2px 2px 0px #000000, 5px 4px 0px rgba(0,0,0,0.15);
 }
 
-h1 {
-    color: goldenrod;
-}
 
 #message-el {
     font-style: italic;
