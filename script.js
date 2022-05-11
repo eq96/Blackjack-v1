@@ -38,6 +38,18 @@ let house = {
     cash: 200,
 }
 
+const startConfetti = () => {
+    setTimeout(function() {
+        confetti.start()
+    }, 100) //1 sec start
+};
+
+const stopConfetti = () => {
+    setTimeout(function() {
+        confetti.stop()
+    }, 100); //5sec stop
+}
+
 playerEl.textContent = `${player.name}: $${player.cash}`
 holdCardEl.hidden = true;
 newCardEl.hidden = true;
@@ -69,6 +81,7 @@ function newGame() {
     sumEl.textContent = "Sum: "
     houseCardsEl.textContent = "House Cards: "
     houseSumEl.textContent = "Sum: "
+    stopConfetti();
 }
 
 function startGame() {
@@ -119,6 +132,7 @@ function renderGame() {
         isAlive = false;
         newGameEl.hidden = false;
         newCardEl.hidden = true;
+        startConfetti();
         win();
     }
     else if (sum < 21 && houseSum > 21) {
@@ -127,6 +141,7 @@ function renderGame() {
         win();
         newGameEl.hidden = false;
         newCardEl.hidden = true;
+        startConfetti();
     }
     else if (houseSum === 21) {
         message = `You lose to the house!`
@@ -233,12 +248,14 @@ function holdCard() {
             isAlive = false;
             newGameEl.hidden = false;
             message = 'You win $100!'
+            startConfetti();
         } else if (sum < houseSum && sum < 21 && houseSum > 21) {
             bet = 0;
             player.cash += 100;
             isAlive = false;
             newGameEl.hidden = false;
             message = 'You win $100!'
+            startConfetti();
         } else if (houseSum > sum && houseSum < 21) {
             bet = 0;
             player.cash -= 100;
@@ -270,12 +287,14 @@ function holdCard() {
             isAlive = false;
             newGameEl.hidden = false;
             message = 'You win $200!'
+            startConfetti();
         } else if (sum < houseSum && sum < 21 && houseSum > 21) {
             bet = 0;
             player.cash += 200;
             isAlive = false;
             newGameEl.hidden = false;
             message = 'You win $200!'
+            startConfetti();
         } else if (houseSum > sum && houseSum < 21) {
             bet = 0;
             player.cash -= 200;
@@ -350,3 +369,4 @@ function holdCard() {
 function clearMsg() {
     msg.textContent = ' ';
 }
+
