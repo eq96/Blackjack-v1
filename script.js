@@ -321,49 +321,6 @@ function holdCard() {
     } else {
         console.log("*******!!!!!!ERROR!!!!!!********")
     }
-
-
-
- /*   if (sum > houseSum && sum <= 21) {
-        if (bet === 50) {
-            bet = 0;
-            console.log("win? bet50")
-            player.cash += 100;
-            message = `You Win!`
-            isAlive = false;
-            newGameEl.hidden = false;
-        } else if (bet === 100) {
-            bet = 0;
-            console.log("win? bet100")
-            player.cash += 200;
-            message = `You Win!`
-            isAlive = false;
-            newGameEl.hidden = false;
-        } else if (bet === 0) {
-            console.log("BET IS 0 ERROR")
-        }
-        return 1;
-    }
-    else if (sum < houseSum && sum < 21) {
-        if (bet === 50) {
-            bet = 0;
-            player.cash -= 100;
-            console.log("lose? bet50")
-            message = `You Lose!`
-            isAlive = false;
-            newGameEl.hidden = false;
-        } else if (bet === 100) {
-            bet = 0;
-            console.log("lose? bet100")
-            message = `You Lose!`
-            player.cash -= 200
-            isAlive = false;
-            newGameEl.hidden = false;
-        } else if (bet === 0) {
-            console.log("BET IS 0 ERROR")
-        }
-        return 1;
-    }*/
 }
 
 function clearMsg() {
