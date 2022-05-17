@@ -15,6 +15,16 @@ let bet2 = document.getElementById("bet2-el");
 let holdCardEl = document.getElementById("holdCard-el");
 let newCardEl = document.getElementById("newCard-el")
 let newGameEl = document.getElementById("newGame-el")
+let winsEl = document.getElementById("wins-el")
+let lossesEl = document.getElementById("losses-el")
+
+//Money storage
+let cashFromLocalStorage = JSON.parse(localStorage.getItem("pCash"))
+let wins = JSON.parse(localStorage.getItem("pWins"))
+let losses = JSON.parse(localStorage.getItem("pLosses"))
+
+let pWins = 0;
+let pLosses = 0;
 
 let hasBlackJack = false;
 let isAlive = false;
@@ -31,7 +41,7 @@ let bet = 0;
 
 let player = {
     name: "player",
-    cash: 200,
+    cash: cashFromLocalStorage,
 }
 
 let house = {
@@ -50,10 +60,18 @@ const stopConfetti = () => {
     }, 100); //5sec stop
 }
 
+checkCash()
+winsEl.textContent = `Wins: ${wins}`
+lossesEl.textContent = `Losses: ${losses}`
 playerEl.textContent = `${player.name}: $${player.cash}`
 holdCardEl.hidden = true;
 newCardEl.hidden = true;
 hideBtn()
+
+window.setInterval(function() {
+    winsEl.textContent = `Wins: ${wins}`
+    lossesEl.textContent = `Losses: ${losses}`
+}, 1000);
 
 bet1.addEventListener("click", () => {
     console.log("TEST!!!!!!!!!!");
@@ -82,6 +100,9 @@ function newGame() {
     houseCardsEl.textContent = "House Cards: "
     houseSumEl.textContent = "Sum: "
     stopConfetti();
+    localStorage.setItem("pCash", JSON.stringify(player.cash))
+    localStorage.setItem("pWins", JSON.stringify(wins))
+    localStorage.setItem("pLosses", JSON.stringify(losses))
 }
 
 function startGame() {
@@ -125,6 +146,7 @@ function renderGame() {
         newGameEl.hidden = false;
         newCardEl.hidden = true;
         bet = 0;
+        losses += 1;
     }
     else if (sum === 21) {
         message = `Blackjack! You Win!`
@@ -134,6 +156,7 @@ function renderGame() {
         newCardEl.hidden = true;
         startConfetti();
         win();
+        wins += 1;
     }
     else if (sum < 21 && houseSum > 21) {
         message = `You Win!`
@@ -142,6 +165,7 @@ function renderGame() {
         newGameEl.hidden = false;
         newCardEl.hidden = true;
         startConfetti();
+        wins += 1;
     }
     else if (houseSum === 21) {
         message = `You lose to the house!`
@@ -149,6 +173,7 @@ function renderGame() {
         bet = 0;
         newGameEl.hidden = false;
         newCardEl.hidden = true;
+        losses += 1;
     } else {
         return;
     }
@@ -191,9 +216,11 @@ function showBtn() {
 function betGame() {
     if (bet === 50) {
         player.cash -= 50;
+        cashFromLocalStorage -= player.cash
     //    bet = 0;
     } else if (bet === 100) {
         player.cash -= 100;
+        cashFromLocalStorage -= player.cash
      //   bet = 0;
     }
     checkCash();
@@ -212,10 +239,14 @@ function win() {
     if (bet === 50) {
         bet = 0;
         player.cash += 100;
+        cashFromLocalStorage += 100
     } else if (bet === 100) {
         bet = 0;
         player.cash += 200;
+
+        cashFromLocalStorage += 200
     }
+    wins += 1;
     playerEl.textContent = `${player.name}: $${player.cash}`
 }
 
@@ -245,29 +276,37 @@ function holdCard() {
         if (sum > houseSum && sum < 21) {
             bet = 0;
             player.cash += 100;
+            cashFromLocalStorage += 100
             isAlive = false;
             newGameEl.hidden = false;
             message = 'You win $100!'
             startConfetti();
+            wins += 1;
         } else if (sum < houseSum && sum < 21 && houseSum > 21) {
             bet = 0;
             player.cash += 100;
+            cashFromLocalStorage += 100
             isAlive = false;
             newGameEl.hidden = false;
             message = 'You win $100!'
             startConfetti();
+            wins += 1;
         } else if (houseSum > sum && houseSum < 21) {
             bet = 0;
             player.cash -= 100;
+            cashFromLocalStorage -= 100
             isAlive = false;
             newGameEl.hidden = false;
             message = 'You LOSE $100!'
+            losses += 1;
         } else if (houseSum === 21) {
             bet = 0;
             player.cash -= 100;
+            cashFromLocalStorage -= 100
             isAlive = false;
             newGameEl.hidden = false;
             message = 'You LOSE $100!'
+            losses += 1;
         } else {
             bet = 0;
             isAlive = false;
@@ -284,29 +323,37 @@ function holdCard() {
         if (sum > houseSum && sum < 21) {
             bet = 0;
             player.cash += 200;
+            cashFromLocalStorage += 200
             isAlive = false;
             newGameEl.hidden = false;
             message = 'You win $200!'
             startConfetti();
+            wins += 1;
         } else if (sum < houseSum && sum < 21 && houseSum > 21) {
             bet = 0;
             player.cash += 200;
+            cashFromLocalStorage += 200
             isAlive = false;
             newGameEl.hidden = false;
             message = 'You win $200!'
             startConfetti();
+            wins += 1;
         } else if (houseSum > sum && houseSum < 21) {
             bet = 0;
             player.cash -= 200;
+            cashFromLocalStorage -= 200
             isAlive = false;
             newGameEl.hidden = false;
             message = 'You LOSE $200!'
+            losses += 1;
         } else if (houseSum === 21) {
             bet = 0;
             player.cash -= 200;
+            cashFromLocalStorage -= 200
             isAlive = false;
             newGameEl.hidden = false;
             message = 'You LOSE $200!'
+            losses += 1;
         } else {
             bet = 0;
             isAlive = false;
@@ -326,4 +373,3 @@ function holdCard() {
 function clearMsg() {
     msg.textContent = ' ';
 }
-

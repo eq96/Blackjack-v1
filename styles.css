@@ -38,3 +38,8 @@ button {
     border: none;
     border-radius: 2px;
 }
+
+#wins-el,
+#losses-el {
+    color:rgb(172, 174, 166);
+}
