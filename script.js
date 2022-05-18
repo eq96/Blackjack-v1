@@ -51,13 +51,13 @@ let house = {
 const startConfetti = () => {
     setTimeout(function() {
         confetti.start()
-    }, 100) //1 sec start
+    }, 100) 
 };
 
 const stopConfetti = () => {
     setTimeout(function() {
         confetti.stop()
-    }, 100); //5sec stop
+    }, 100);
 }
 
 checkCash()
@@ -74,17 +74,15 @@ window.setInterval(function() {
 }, 1000);
 
 bet1.addEventListener("click", () => {
-    console.log("TEST!!!!!!!!!!");
-    bet = 50;
     betGame();
     newCardEl.hidden = false;
+    bet = 50;
 });
 
 bet2.addEventListener("click", () => {
-    console.log("TEST!!!!!!!!!!");
-    bet = 100;
     betGame();
     newCardEl.hidden = false;
+    bet = 100;
 });
 
 function randomNum(max) {
@@ -94,12 +92,12 @@ function randomNum(max) {
 function newGame() {
     showBtn();
     clearMsg();
+    stopConfetti();
     newGameEl.hidden = true;
     cardsEl.textContent = "Cards: "
     sumEl.textContent = "Sum: "
     houseCardsEl.textContent = "House Cards: "
     houseSumEl.textContent = "Sum: "
-    stopConfetti();
     localStorage.setItem("pCash", JSON.stringify(player.cash))
     localStorage.setItem("pWins", JSON.stringify(wins))
     localStorage.setItem("pLosses", JSON.stringify(losses))
